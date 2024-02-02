@@ -27,7 +27,7 @@ namespace CartasCredito.Controllers.api
 					return BadRequest(ModelState);
 				}
 
-				var usuario = AspNetUser.GetByUserName(loginDTO.UserName);
+				 var usuario = AspNetUser.GetByUserName(loginDTO.UserName);
 
 				// Verifica que sea un usuario activo
 				if (usuario.Activo == false)
@@ -39,13 +39,13 @@ namespace CartasCredito.Controllers.api
 				bool isLocalCredentialValid = Crypto.VerifyHashedPassword(usuario.PasswordHash, loginDTO.Password);
 
 				// Validar cuenta en GIS
-				var tryLogin_Gis = Utility.Login_GIS(loginDTO.UserName, loginDTO.Password);
+				/*var tryLogin_Gis = Utility.Login_GIS(loginDTO.UserName, loginDTO.Password);
 
 				// Si no pasa la validacion en GIS, regresar mensaje - bypass cuenta softdepot
 				if (tryLogin_Gis.Flag == false && loginDTO.UserName.ToLower() != "softdepot")
 				{
 					return Content(HttpStatusCode.Unauthorized, "LOGIN_GIS");
-				}
+				}*/
 
 				if (isLocalCredentialValid)
 				{

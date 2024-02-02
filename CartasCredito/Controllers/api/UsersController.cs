@@ -86,7 +86,8 @@ namespace CartasCredito.Controllers.api
 				var u = new AspNetUser();
 				u.UserName = userDto.Email;
 				u.Email = userDto.Email;
-				u.PasswordHash = Crypto.HashPassword("RandomPassword" + curDate.ToString());
+				//u.PasswordHash = Crypto.HashPassword("RandomPassword" + curDate.ToString());
+				u.PasswordHash = Crypto.HashPassword("Gis24%@#");
 				u.PhoneNumber = userDto.PhoneNumber;
 				u.Activo = false;
 				

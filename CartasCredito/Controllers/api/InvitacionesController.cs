@@ -88,18 +88,18 @@ namespace CartasCredito.Controllers.api
 
 				if (usr != null && usr.Id.Length > 0)
 				{
-					var tryLogin_Gis = Utility.Login_GIS(loginDTO.UserName, loginDTO.Password);
+					/*var tryLogin_Gis = Utility.Login_GIS(loginDTO.UserName, loginDTO.Password);
 					if (tryLogin_Gis.Flag != false)
-					{
+					{*/
 						usr.PasswordHash = Crypto.HashPassword(loginDTO.Password);
 						usr.Activo = true;
 						rsp = AspNetUser.UpdatePassword(usr);
 						AspNetUser.Update(usr);
-					}
+					/*}
 					else
 					{
 						throw new Exception(tryLogin_Gis.Description);
-					}
+					}*/
 				}
 				else
 				{

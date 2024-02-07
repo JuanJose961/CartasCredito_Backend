@@ -35,16 +35,23 @@ namespace CartasCredito.Controllers.api
 
 			try
 			{
-				var m = new LineaDeCredito()
+				if (modelo.EmpresaId > 0 && modelo.BancoId>0 && modelo.Monto<=0 && modelo.Cuenta!="")
 				{
-					EmpresaId = modelo.EmpresaId,
-					BancoId = modelo.BancoId,
-					Monto = modelo.Monto,
-					Cuenta = modelo.Cuenta,
-					CreadoPor = usr.Id
-				};
+					var m = new LineaDeCredito()
+					{
+						EmpresaId = modelo.EmpresaId,
+						BancoId = modelo.BancoId,
+						Monto = modelo.Monto,
+						Cuenta = modelo.Cuenta,
+						CreadoPor = usr.Id
+					};
 
-				rsp = LineaDeCredito.Insert(m);
+					rsp = LineaDeCredito.Insert(m);
+                }
+                else
+                {
+					throw new Exception("Faltan datos por completar");
+				}
 			}
 			catch (Exception ex)
 			{

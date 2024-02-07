@@ -35,16 +35,23 @@ namespace CartasCredito.Controllers.api
 
 			try
 			{
-				var m = new Comprador()
+				if (modelo.EmpresaId > 0 && modelo.TipoPersonaFiscalId > 0)
 				{
-					EmpresaId = modelo.EmpresaId,
-					TipoPersonaFiscalId = modelo.TipoPersonaFiscalId,
-					Nombre = modelo.Nombre,
-					Descripcion = modelo.Descripcion,
-					CreadoPor = usr.Id
-				};
+					var m = new Comprador()
+					{
+						EmpresaId = modelo.EmpresaId,
+						TipoPersonaFiscalId = modelo.TipoPersonaFiscalId,
+						Nombre = modelo.Nombre,
+						Descripcion = modelo.Descripcion,
+						CreadoPor = usr.Id
+					};
 
-				rsp = Comprador.Insert(m);
+					rsp = Comprador.Insert(m);
+                }
+                else
+                {
+					throw new Exception("Faltan datos por completar");
+				}
 			}
 			catch (Exception ex)
 			{

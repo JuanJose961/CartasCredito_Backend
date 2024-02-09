@@ -35,7 +35,7 @@ namespace CartasCredito.Controllers.api
 
 			try
 			{
-				if (modelo.EmpresaId > 0 && modelo.BancoId>0 && modelo.Monto<=0 && modelo.Cuenta!="")
+				if (modelo.EmpresaId > 0 && modelo.BancoId>0 && modelo.Monto<0 && modelo.Cuenta!="")
 				{
 					var m = new LineaDeCredito()
 					{

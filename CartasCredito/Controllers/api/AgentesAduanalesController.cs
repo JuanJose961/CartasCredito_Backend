@@ -35,15 +35,28 @@ namespace CartasCredito.Controllers.api
 
 			try
 			{
-				var div = new AgenteAduanal()
-				{
-					Nombre = modelo.Nombre,
-					Descripcion = modelo.Descripcion,
-					CreadoPor = usr.Id
-				};
+                if (modelo.Nombre != "" && modelo.Descripcion != "")
+                {
+                    var div = new AgenteAduanal()
+					{
+						Nombre = modelo.Nombre,
+						Descripcion = modelo.Descripcion,
+						CreadoPor = usr.Id
+					};
 
-				rsp = AgenteAduanal.Insert(div);
-			}
+					rsp = AgenteAduanal.Insert(div);
+
+                    //var mContacto = modelo.Contacto;
+                    //mContacto.ModelNombre = "Agente Aduanal";
+                    //mContacto.ModelId = rsp.DataInt;
+
+                    //Contacto.Insert(mContacto);
+                }
+                else
+                {
+                    throw new Exception("Faltan datos por completar");
+                }
+            }
 			catch (Exception ex)
 			{
 				rsp.Flag = false;

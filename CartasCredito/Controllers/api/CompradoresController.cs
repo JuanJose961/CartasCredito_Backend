@@ -35,7 +35,7 @@ namespace CartasCredito.Controllers.api
 
 			try
 			{
-				if (modelo.EmpresaId > 0 && modelo.TipoPersonaFiscalId > 0)
+				if (modelo.EmpresaId > 0 && modelo.TipoPersonaFiscalId > 0 && modelo.Nombre!="" && modelo.Descripcion!="")
 				{
 					var m = new Comprador()
 					{

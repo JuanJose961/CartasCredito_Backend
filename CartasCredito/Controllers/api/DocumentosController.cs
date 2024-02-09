@@ -35,15 +35,22 @@ namespace CartasCredito.Controllers.api
 
 			try
 			{
-				var m = new Documento()
-				{
-					Nombre = modelo.Nombre,
-					Descripcion = modelo.Descripcion,
-					CreadoPor = usr.Id
-				};
+                if (modelo.Nombre!="" && modelo.Descripcion!="")
+                {
+					var m = new Documento()
+					{
+						Nombre = modelo.Nombre,
+						Descripcion = modelo.Descripcion,
+						CreadoPor = usr.Id
+					};
 
-				rsp = Documento.Insert(m);
-			}
+					rsp = Documento.Insert(m);
+                }
+                else
+                {
+                    throw new Exception("Faltan datos por completar");
+                }
+            }
 			catch (Exception ex)
 			{
 				rsp.Flag = false;

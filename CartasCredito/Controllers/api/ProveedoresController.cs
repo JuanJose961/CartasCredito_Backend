@@ -36,19 +36,22 @@ namespace CartasCredito.Controllers.api
 
 			try
 			{
-				var paises = Pais.Get();
-				var findPais = paises.Find(p => p.Nombre.Trim().ToLower() == modelo.Pais.Trim().ToLower());
 				
-				if ( findPais != null)
-				{
-					paisId = findPais.Id;
-				} else
-				{
-					var nuevoPais = new Pais();
-					nuevoPais.Nombre = modelo.Pais;
-					var nuevoPaisRsp = Pais.Insert(nuevoPais);
-					paisId = nuevoPaisRsp.DataInt;
-				}
+					var paises = Pais.Get();
+					var findPais = paises.Find(p => p.Nombre.Trim().ToLower() == modelo.Pais.Trim().ToLower());
+
+					if (findPais != null)
+					{
+						paisId = findPais.Id;
+					}
+					else
+					{
+						var nuevoPais = new Pais();
+						nuevoPais.Nombre = modelo.Pais;
+						var nuevoPaisRsp = Pais.Insert(nuevoPais);
+						paisId = nuevoPaisRsp.DataInt;
+					}
+				
 
 			} catch (Exception ex)
 			{
@@ -57,23 +60,30 @@ namespace CartasCredito.Controllers.api
 
 			try
 			{
-				var m = new Proveedor()
-				{
-					EmpresaId = modelo.EmpresaId,
-					PaisId = paisId,
-					Nombre = modelo.Nombre,
-					Descripcion = modelo.Descripcion,
-					CreadoPor = usr.Id
-				};
+				if (modelo.Nombre != "" && modelo.EmpresaId>0 && paisId >0 && modelo.Descripcion != "" && modelo.Contacto.Nombre != "" && modelo.Contacto.ApellidoPaterno != "" && modelo.Contacto.ApellidoMaterno != "" && modelo.Contacto.Telefono != "" && modelo.Contacto.Email != "" && modelo.Contacto.Fax != "")
+                {
+					var m = new Proveedor()
+					{
+						EmpresaId = modelo.EmpresaId,
+						PaisId = paisId,
+						Nombre = modelo.Nombre,
+						Descripcion = modelo.Descripcion,
+						CreadoPor = usr.Id
+					};
 
-				rsp = Proveedor.Insert(m);
+					rsp = Proveedor.Insert(m);
 
-				var mContacto = modelo.Contacto;
-				mContacto.ModelNombre = "Proveedor";
-				mContacto.ModelId = rsp.DataInt;
+					var mContacto = modelo.Contacto;
+					mContacto.ModelNombre = "Proveedor";
+					mContacto.ModelId = rsp.DataInt;
 
-				Contacto.Insert(mContacto);
-			}
+					Contacto.Insert(mContacto);
+                }
+                else
+                {
+                    throw new Exception("Faltan datos por completar");
+                }
+            }
 			catch (Exception ex)
 			{
 				rsp.Flag = false;
